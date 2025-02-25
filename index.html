@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official website of NIT Kurukshetra, an Institute of National Importance. Find information about admissions, academics, and more.">
     <title>National Institute of Technology Kurukshetra</title>
     <style>
         * {
@@ -29,12 +30,6 @@
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
-        }
-        
-        .top-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
         }
         
         .main-header {
@@ -74,6 +69,7 @@
         .main-nav {
             background-color: #11293e;
             padding: 10px 0;
+            position: relative;
         }
         
         .nav-container {
@@ -84,6 +80,7 @@
         .nav-menu {
             list-style: none;
             display: flex;
+            justify-content: space-around;
         }
         
         .nav-menu li {
@@ -101,7 +98,42 @@
         .nav-menu li a:hover {
             background-color: #1a4065;
         }
-        
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                background-color: #11293e;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+            }
+
+            .nav-menu li {
+                text-align: center;
+                border-top: 1px solid white;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+        }
+
         /* Main Content */
         .main-content {
             width: 80%;
@@ -160,7 +192,6 @@
             font-size: 14px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -173,10 +204,7 @@
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="top-bar-container">
-            <div class="top-contact">
-                <span>Tel: +91-1744-233100</span>
-                <span>Email: director@nitkkr.ac.in</span>
-            </div>
+            <span>Tel: +91-1744-233100 | Email: director@nitkkr.ac.in</span>
         </div>
     </div>
     
@@ -196,6 +224,7 @@
     <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
+            <span class="menu-toggle">☰</span>
             <ul class="nav-menu">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
@@ -235,10 +264,14 @@
     <!-- ChatGPT Chatbot Button -->
     <button id="chatgpt-button">Chat with NIT KKR AI</button>
 
-    <!-- JavaScript for ChatGPT Button -->
+    <!-- JavaScript -->
     <script>
+        document.querySelector(".menu-toggle").addEventListener("click", function() {
+            document.querySelector(".nav-menu").classList.toggle("active");
+        });
+
         document.getElementById("chatgpt-button").addEventListener("click", function() {
-            window.open("https://chatgpt.com/g/g-67b0b5e94e4c819180a1fc6489b82d8e-nit-kkr", "_blank");
+            window.open("https://chatgpt.com/g/g-67b0b5e94e4c819180a1fc6489b82d8e-nit-kkr", "chatgpt-window", "width=400,height=500");
         });
     </script>
 
