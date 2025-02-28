@@ -626,18 +626,18 @@
                 <button class="close-button" id="closeFeedbackModal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="feedback-form">
+                <form id="feedbackForm">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Your name">
+                        <input type="text" id="name" placeholder="Your name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Your email address">
+                        <input type="email" id="email" placeholder="Your email address" required>
                     </div>
                     <div class="form-group">
                         <label for="feedbackType">Feedback Type</label>
-                        <select id="feedbackType">
+                        <select id="feedbackType" required>
                             <option value="general">General Feedback</option>
                             <option value="assistant">AI Assistant Feedback</option>
                             <option value="website">Website Feedback</option>
@@ -647,11 +647,14 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Your Feedback</label>
-                        <textarea id="message"
-                            placeholder="Please share your detailed feedback or suggestions..."></textarea>
+                        <textarea id="message" placeholder="Please share your detailed feedback..." required></textarea>
                     </div>
                     <button type="submit" class="submit-button">Submit Feedback</button>
-                </div>
+                </form>
+                
+                <!-- Response Message -->
+                <p id="responseMessage" style="display:none; color: green;"></p>
+                
             </div>
         </div>
     </div>
@@ -736,6 +739,53 @@
             feedbackModal.style.display = 'none';
         });
 
+        // Close Modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === feedbackModal) {
+               feedbackModal.style.display = 'none';
+            }
+        });
+
+        // Close Modal when pressing "Escape" key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === "Escape" && feedbackModal.style.display === 'flex') {
+                feedbackModal.style.display = 'none';
+            }
+        });
+
+        // Feedback Form Submission (Google Apps Script Integration)
+        document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+           event.preventDefault(); // Prevent the default form submission
+
+            // Get form values
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const feedbackType = document.getElementById("feedbackType").value;
+            const message = document.getElementById("message").value;
+
+           // Google Apps Script Web App URL (Replace this with your actual deployment URL)
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzj0LlZuOHyHQuu7Ub3Cp_rwNwBL7AlwLEqJ3VAeU3TacqV1nvYBOigGsLVpZAPpvFnPg/exec";
+
+            // Create Form Data Object
+            const formData = new FormData();
+            formData.append("name", name);
+           formData.append("email", email);
+            formData.append("feedbackType", feedbackType);
+            formData.append("message", message);
+
+            // Send data to Google Apps Script
+            fetch(scriptURL, {
+               method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("responseMessage").textContent = "Feedback submitted successfully!";
+                document.getElementById("responseMessage").style.display = "block";
+                document.getElementById("feedbackForm").reset(); // Clear form after submission
+            })
+            .catch(error => console.error("Error submitting feedback:", error));
+        });
         // Best Prompts Modal Functionality
         const bestPromptsModal = document.getElementById('bestPromptsModal');
         const openPromptsBtn = document.getElementById('openPrompts');
