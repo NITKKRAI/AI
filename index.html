@@ -486,12 +486,13 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
             </ul>
-        </nav>        
+        </nav>
     </header>
     <main>
         <div class="hero">
             <h2>Welcome to NIT Kurukshetra AI Assistant</h2>
-            <p>Get instant answers to your queries about admissions, courses, faculty, infrastructure, and campus life at
+            <p>Get instant answers to your queries about admissions, courses, faculty, infrastructure, and campus life
+                at
                 National Institute of Technology, Kurukshetra. Our AI-powered assistant is here to help you 24/7.</p>
             <div class="ai-button-container">
                 <button class="ai-button" id="openAI">
@@ -518,6 +519,10 @@
                     </svg>
                     Best Prompts for our AI
                 </button>
+                <!-- New button linking to NIT Kurukshetra website -->
+                <a href="https://nitkkr.ac.in/" class="ai-button" target="_blank">
+                    Visit NIT KKR Website
+                </a>
             </div>
         </div>
         <div class="features">
@@ -559,7 +564,7 @@
                 <h3>Campus Information</h3>
                 <p>Learn about courses, facilities, faculty, hostel accommodation, and more.</p>
             </div>
-            <div class="feature-card">
+             <div class="feature-card">
                 <div class="feature-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -651,10 +656,10 @@
                     </div>
                     <button type="submit" class="submit-button">Submit Feedback</button>
                 </form>
-                
+
                 <!-- Response Message -->
                 <p id="responseMessage" style="display:none; color: green;"></p>
-                
+
             </div>
         </div>
     </div>
@@ -693,7 +698,7 @@
                         <span class="prompt-text">How is campus life at NIT Kurukshetra?</span>
                         <button class="copy-button" data-prompt="How is campus life at NIT Kurukshetra?">Copy</button>
                     </li>
-                    <li class="prompt-item">
+                      <li class="prompt-item">
                         <span class="prompt-text">Details of student Shahbhik, his date of birth, result, section
                             etc.</span>
                         <button class="copy-button"
@@ -703,7 +708,6 @@
             </div>
         </div>
     </div>
-
     <script>
         // Assistant Modal functionality
         const aiModal = document.getElementById('aiModal');
@@ -742,7 +746,7 @@
         // Close Modal when clicking outside
         window.addEventListener('click', (event) => {
             if (event.target === feedbackModal) {
-               feedbackModal.style.display = 'none';
+                feedbackModal.style.display = 'none';
             }
         });
 
@@ -752,7 +756,6 @@
                 feedbackModal.style.display = 'none';
             }
         });
-
         // Feedback Form Submission (Google Apps Script Integration)
         document.getElementById("feedbackForm").addEventListener("submit", function(event) {
            event.preventDefault(); // Prevent the default form submission
