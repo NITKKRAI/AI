@@ -524,7 +524,7 @@
     <main>
         <div class="hero">
             <h2>Welcome to NIT Kurukshetra AI Assistant</h2>
-            <p>Get instant answers to your queries about admissions, courses, faculty, infrastructure, and campus life
+            <p>Get instant answers to your queries about admissions, courses, faculty, Student info, infrastructure, and campus life
                 at
                 National Institute of Technology, Kurukshetra. Our AI-powered assistant is here to help you 24/7.</p>
             
@@ -558,10 +558,20 @@
                         <path d="M12 8V14" stroke="white" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    Best Prompts for our AI
+                    Best Prompts for this GPT
                 </button>
                 <!-- New button linking to NIT Kurukshetra website -->
                 <a href="https://nitkkr.ac.in/" class="ai-button" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 3C7.58172 3 4 6.58172 4 11C4 15.4183 7.58172 19 12 19C16.4183 19 20 15.4183 20 11C20 6.58172 16.4183 3 12 3Z"
+                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M9 11H15" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M12 8V14" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
                     Visit NIT KKR Website
                 </a>
             </div>            
@@ -699,7 +709,7 @@
                 </form>
 
                 <!-- Response Message -->
-                <p id="responseMessage" style="display:none; color: green;"></p>
+                <p id="responseMessage" style="display:none; color: #051c45;"></p>
 
             </div>
         </div>
@@ -714,19 +724,17 @@
             <div class="modal-body">
                 <ul class="prompt-list">
                     <li class="prompt-item">
-                        <span class="prompt-text">What are the admission requirements for B.Tech programs?</span>
+                        <span class="prompt-text">Give top 10 students for IT branch acc to cgpa.</span>
                         <button class="copy-button"
                             data-prompt="What are the admission requirements for B.Tech programs?">Copy</button>
                     </li>
                     <li class="prompt-item">
-                        <span class="prompt-text">Tell me about the courses offered by the Computer Science
-                            department.</span>
+                        <span class="prompt-text">Give details of roll no 1231XXXXX</span>
                         <button class="copy-button"
                             data-prompt="Tell me about the courses offered by the Computer Science department.">Copy</button>
                     </li>
                     <li class="prompt-item">
-                        <span class="prompt-text">Who are the faculty members in the Electrical Engineering
-                            department?</span>
+                        <span class="prompt-text">when is the birthday of roll no #######</span>
                         <button class="copy-button"
                             data-prompt="Who are the faculty members in the Electrical Engineering department.">Copy</button>
                     </li>
@@ -740,7 +748,7 @@
                         <button class="copy-button" data-prompt="How is campus life at NIT Kurukshetra?">Copy</button>
                     </li>
                       <li class="prompt-item">
-                        <span class="prompt-text">Details of student Shahbhik, his date of birth, result, section
+                        <span class="prompt-text">Details of student named Jatin, his date of birth, result, section
                             etc.</span>
                         <button class="copy-button"
                             data-prompt="Details of student Shahbhik, his date of birth, result, section etc.">Copy</button>
