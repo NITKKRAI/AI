@@ -138,7 +138,14 @@
             width: 100%;
             justify-content: center;
         }
-
+        .ai-button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center; /* this line horizontally centers the items */
+            justify-content: center; /* this line vertically centers the items */
+        }
+        
         .ai-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 7px 20px rgba(5, 28, 69, 0.4);
@@ -434,6 +441,32 @@
             background-color: #367c39;
         }
 
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .notification-strip {
+            overflow: hidden;
+            background-color: #ccdbf1;
+            padding: 8px 0;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            transition: transform 0.3s ease; /* Smooth transition effect */
+        }
+        
+        .notification-strip:hover {
+            transform: scale(1.05); /* Makes element 5% bigger on hover */
+        }
+
+        .notification-text {
+            animation: marquee 15s linear infinite;
+            white-space: nowrap;
+            color: #051c45;
+            font-weight: bold;
+        }
+
         /* Media Queries for Responsiveness */
         @media (min-width: 768px) {
 
@@ -494,6 +527,14 @@
             <p>Get instant answers to your queries about admissions, courses, faculty, infrastructure, and campus life
                 at
                 National Institute of Technology, Kurukshetra. Our AI-powered assistant is here to help you 24/7.</p>
+            
+            <!-- Added notification strip here -->
+            <div class="notification-strip">
+                <div class="notification-text">
+                    If you find any rubbish answers, Please fill feedback form in bottom of the page.
+                </div>
+            </div>
+            
             <div class="ai-button-container">
                 <button class="ai-button" id="openAI">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -523,7 +564,7 @@
                 <a href="https://nitkkr.ac.in/" class="ai-button" target="_blank">
                     Visit NIT KKR Website
                 </a>
-            </div>
+            </div>            
         </div>
         <div class="features">
             <div class="feature-card">
@@ -756,39 +797,38 @@
                 feedbackModal.style.display = 'none';
             }
         });
-        // Feedback Form Submission (Google Apps Script Integration)
-        document.getElementById("feedbackForm").addEventListener("submit", function(event) {
-           event.preventDefault(); // Prevent the default form submission
-
+       // Feedback Form Submission (Google Apps Script Integration)
+       document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
             // Get form values
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
             const feedbackType = document.getElementById("feedbackType").value;
             const message = document.getElementById("message").value;
-
-           // Google Apps Script Web App URL (Replace this with your actual deployment URL)
+            
+            // Google Apps Script Web App URL (Replace this with your actual deployment URL)
             const scriptURL = "https://script.google.com/macros/s/AKfycbzj0LlZuOHyHQuu7Ub3Cp_rwNwBL7AlwLEqJ3VAeU3TacqV1nvYBOigGsLVpZAPpvFnPg/exec";
-
+            
             // Create Form Data Object
             const formData = new FormData();
             formData.append("name", name);
-           formData.append("email", email);
+            formData.append("email", email);
             formData.append("feedbackType", feedbackType);
             formData.append("message", message);
-
-            // Send data to Google Apps Script
+            
+            // Show success message immediately
+            document.getElementById("responseMessage").textContent = "Feedback submitted successfully!";
+            document.getElementById("responseMessage").style.display = "block";
+            document.getElementById("feedbackForm").reset(); // Clear form after submission
+            
+            // Send data to Google Apps Script without waiting for response
             fetch(scriptURL, {
-               method: "POST",
+                method: "POST",
                 body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("responseMessage").textContent = "Feedback submitted successfully!";
-                document.getElementById("responseMessage").style.display = "block";
-                document.getElementById("feedbackForm").reset(); // Clear form after submission
-            })
-            .catch(error => console.error("Error submitting feedback:", error));
+            });
         });
+
         // Best Prompts Modal Functionality
         const bestPromptsModal = document.getElementById('bestPromptsModal');
         const openPromptsBtn = document.getElementById('openPrompts');
