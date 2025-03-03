@@ -138,7 +138,14 @@
             width: 100%;
             justify-content: center;
         }
-
+        .ai-button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center; /* this line horizontally centers the items */
+            justify-content: center; /* this line vertically centers the items */
+        }
+        
         .ai-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 7px 20px rgba(5, 28, 69, 0.4);
@@ -434,6 +441,32 @@
             background-color: #367c39;
         }
 
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .notification-strip {
+            overflow: hidden;
+            background-color: #ccdbf1;
+            padding: 8px 0;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            transition: transform 0.3s ease; /* Smooth transition effect */
+        }
+        
+        .notification-strip:hover {
+            transform: scale(1.05); /* Makes element 5% bigger on hover */
+        }
+
+        .notification-text {
+            animation: marquee 15s linear infinite;
+            white-space: nowrap;
+            color: #051c45;
+            font-weight: bold;
+        }
+
         /* Media Queries for Responsiveness */
         @media (min-width: 768px) {
 
@@ -482,17 +515,26 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="hero">
             <h2>Welcome to NIT Kurukshetra AI Assistant</h2>
-            <p>Get instant answers to your queries about admissions, courses, faculty, infrastructure, and campus life at
+            <p>Get instant answers to your queries about admissions, courses, faculty, Student info, infrastructure, and campus life
+                at
                 National Institute of Technology, Kurukshetra. Our AI-powered assistant is here to help you 24/7.</p>
+            
+            <!-- Added notification strip here -->
+            <div class="notification-strip">
+                <div class="notification-text">
+                    If you find any incorrect answers, Please fill feedback form in bottom of the page. Model is in development Phase.
+                </div>
+            </div>
+            
             <div class="ai-button-container">
                 <button class="ai-button" id="openAI">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -516,9 +558,23 @@
                         <path d="M12 8V14" stroke="white" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    Best Prompts for our AI
+                    Best Prompts for this GPT
                 </button>
-            </div>
+                <!-- New button linking to NIT Kurukshetra website -->
+                <a href="https://nitkkr.ac.in/" class="ai-button" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 3C7.58172 3 4 6.58172 4 11C4 15.4183 7.58172 19 12 19C16.4183 19 20 15.4183 20 11C20 6.58172 16.4183 3 12 3Z"
+                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M9 11H15" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M12 8V14" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Visit NIT KKR Website
+                </a>
+            </div>            
         </div>
         <div class="features">
             <div class="feature-card">
@@ -559,7 +615,7 @@
                 <h3>Campus Information</h3>
                 <p>Learn about courses, facilities, faculty, hostel accommodation, and more.</p>
             </div>
-            <div class="feature-card">
+             <div class="feature-card">
                 <div class="feature-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -577,7 +633,7 @@
         </div>
     </main>
     <footer>
-        <p class="copyright">&copy; 2025 Shahbhik Technologies private limited. All rights reserved.</p>
+        <p class="copyright">&copy; 2025 Shabhik Technologies private limited. All rights reserved.</p>
         <p class="copyright">If you face any problem about your data, just send us a feedback. Data will be updated in
             24
             working hours.
@@ -626,18 +682,18 @@
                 <button class="close-button" id="closeFeedbackModal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="feedback-form">
+                <form id="feedbackForm">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Your name">
+                        <input type="text" id="name" placeholder="Your name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Your email address">
+                        <input type="email" id="email" placeholder="Your email address" required>
                     </div>
                     <div class="form-group">
                         <label for="feedbackType">Feedback Type</label>
-                        <select id="feedbackType">
+                        <select id="feedbackType" required>
                             <option value="general">General Feedback</option>
                             <option value="assistant">AI Assistant Feedback</option>
                             <option value="website">Website Feedback</option>
@@ -647,11 +703,14 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Your Feedback</label>
-                        <textarea id="message"
-                            placeholder="Please share your detailed feedback or suggestions..."></textarea>
+                        <textarea id="message" placeholder="Please share your detailed feedback..." required></textarea>
                     </div>
                     <button type="submit" class="submit-button">Submit Feedback</button>
-                </div>
+                </form>
+
+                <!-- Response Message -->
+                <p id="responseMessage" style="display:none; color: #051c45;"></p>
+
             </div>
         </div>
     </div>
@@ -665,21 +724,19 @@
             <div class="modal-body">
                 <ul class="prompt-list">
                     <li class="prompt-item">
-                        <span class="prompt-text">What are the admission requirements for B.Tech programs?</span>
+                        <span class="prompt-text">Give top 10 students for IT branch acc to cgpa.</span>
                         <button class="copy-button"
-                            data-prompt="What are the admission requirements for B.Tech programs?">Copy</button>
+                            data-prompt="Give top 10 students for IT branch acc to cgpa.">Copy</button>
                     </li>
                     <li class="prompt-item">
-                        <span class="prompt-text">Tell me about the courses offered by the Computer Science
-                            department.</span>
+                        <span class="prompt-text">Give details of roll no 1231XXXXX</span>
                         <button class="copy-button"
-                            data-prompt="Tell me about the courses offered by the Computer Science department.">Copy</button>
+                            data-prompt="Give details of roll no 1231XXXXX">Copy</button>
                     </li>
                     <li class="prompt-item">
-                        <span class="prompt-text">Who are the faculty members in the Electrical Engineering
-                            department?</span>
+                        <span class="prompt-text">when is the birthday of roll no #######</span>
                         <button class="copy-button"
-                            data-prompt="Who are the faculty members in the Electrical Engineering department.">Copy</button>
+                            data-prompt="when is the birthday of roll no #######">Copy</button>
                     </li>
                     <li class="prompt-item">
                         <span class="prompt-text">What are the facilities available for hostel residents?</span>
@@ -690,8 +747,8 @@
                         <span class="prompt-text">How is campus life at NIT Kurukshetra?</span>
                         <button class="copy-button" data-prompt="How is campus life at NIT Kurukshetra?">Copy</button>
                     </li>
-                    <li class="prompt-item">
-                        <span class="prompt-text">Details of student Shahbhik, his date of birth, result, section
+                      <li class="prompt-item">
+                        <span class="prompt-text">Details of student named Jatin, his date of birth, result, section
                             etc.</span>
                         <button class="copy-button"
                             data-prompt="Details of student Shahbhik, his date of birth, result, section etc.">Copy</button>
@@ -700,7 +757,6 @@
             </div>
         </div>
     </div>
-
     <script>
         // Assistant Modal functionality
         const aiModal = document.getElementById('aiModal');
@@ -734,6 +790,51 @@
 
         closeFeedbackBtn.addEventListener('click', () => {
             feedbackModal.style.display = 'none';
+        });
+
+        // Close Modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === feedbackModal) {
+                feedbackModal.style.display = 'none';
+            }
+        });
+
+        // Close Modal when pressing "Escape" key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === "Escape" && feedbackModal.style.display === 'flex') {
+                feedbackModal.style.display = 'none';
+            }
+        });
+       // Feedback Form Submission (Google Apps Script Integration)
+       document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Get form values
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const feedbackType = document.getElementById("feedbackType").value;
+            const message = document.getElementById("message").value;
+            
+            // Google Apps Script Web App URL (Replace this with your actual deployment URL)
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzj0LlZuOHyHQuu7Ub3Cp_rwNwBL7AlwLEqJ3VAeU3TacqV1nvYBOigGsLVpZAPpvFnPg/exec";
+            
+            // Create Form Data Object
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("feedbackType", feedbackType);
+            formData.append("message", message);
+            
+            // Show success message immediately
+            document.getElementById("responseMessage").textContent = "Feedback submitted successfully!";
+            document.getElementById("responseMessage").style.display = "block";
+            document.getElementById("feedbackForm").reset(); // Clear form after submission
+            
+            // Send data to Google Apps Script without waiting for response
+            fetch(scriptURL, {
+                method: "POST",
+                body: formData
+            });
         });
 
         // Best Prompts Modal Functionality
