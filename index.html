@@ -500,7 +500,15 @@
         }
     </style>
 </head>
+<!-- Google Analytics Tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JF7KN1SXD9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-JF7KN1SXD9');
+</script>
 <body>
     <header>
         <div class="logo-container">
@@ -861,8 +869,6 @@
                 bestPromptsModal.style.display = 'none';
             }
         });
-
-        // Copy to Clipboard functionality
         document.getElementById('bestPromptsModal').addEventListener('click', function (event) {
             if (event.target.classList.contains('copy-button')) {
                 const promptText = event.target.dataset.prompt;
